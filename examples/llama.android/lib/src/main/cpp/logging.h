@@ -23,7 +23,7 @@
 #endif
 
 static inline int ai_should_log(int prio) {
-    return __android_log_is_loggable(prio, LOG_TAG, LOG_MIN_LEVEL);
+    return 1;
 }
 
 #if LOG_MIN_LEVEL <= ANDROID_LOG_VERBOSE
@@ -54,8 +54,7 @@ static inline int android_log_prio_from_ggml(enum ggml_log_level level) {
 
 static inline void aichat_android_log_callback(enum ggml_log_level level,
                                               const char* text,
-                                              void* /*user*/) {
-    const int prio = android_log_prio_from_ggml(level);
+                                              void* /*user*/) {    const int prio = android_log_prio_from_ggml(level);
     if (!ai_should_log(prio)) return;
     __android_log_write(prio, LOG_TAG, text);
 }
